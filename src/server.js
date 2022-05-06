@@ -543,3 +543,202 @@
 // saveThePrisoner(7, 19, 2) // 6
 // saveThePrisoner(3, 10, 3) // 3
 // saveThePrisoner(5, 2, 2) // 3
+
+
+
+// function compareTriplets(a, b) {
+//     // Write your code here
+//     let bobScores = 0
+//     let aliceScores = 0
+//     for (let i = 0; i < a.length; i++) {
+//         if (a[i] > b[i]) aliceScores++
+//         else if (a[i] < b[i]) bobScores++
+//     }
+//     console.log(aliceScores,bobScores);
+//     return [aliceScores,bobScores]
+// }
+// compareTriplets([5 ,6 ,7],[3, 6, 10])
+// compareTriplets([17, 28, 30],[99, 16, 8])
+
+
+// function diagonalDifference(arr) {
+//     // Write your code here
+//     let ltrDiagonal = 0
+//     let rtlDiagonal = 0
+//     let total;
+//     let lastElementStart = arr.length - 1
+//     for (let i = 0; i < arr.length; i++) {
+//         if (i === 0) {
+//             ltrDiagonal += arr[i][i];
+//             rtlDiagonal += arr[i][lastElementStart];
+//         }
+//         else {
+//             ltrDiagonal += arr[i][i];
+//             rtlDiagonal += arr[i][--lastElementStart];
+//         }
+//     }
+//     total = Math.abs(ltrDiagonal - rtlDiagonal)
+//     console.log(total);
+//     return total
+// }
+// diagonalDifference([[11, 2, 4,], [4, 5, 6], [10, 8, -12]]) // 15
+// diagonalDifference([[-1, 1, -7, -8], [-10, -8, -5, -2], [0, 9, 7, -1], [4, 4, -2, 1]]) // 1
+
+
+
+// don't forget the rice on the stove
+
+
+
+// function pickingNumbers(a) {
+//     // Write your code here
+//     let sorted = a.sort((a,b) => {
+//         return a - b
+//     })
+//     let i = 0;
+//     let j = 1;
+//     let total;
+//
+//     while(i < sorted.length && j < sorted.length) {
+//         if(Math.abs(sorted[i] - sorted[j]) > 1) {
+//             i++;
+//             j++;
+//         } else {
+//             j++;
+//         }
+//     }
+//     total = Math.abs(i - j)
+//     console.log(total);
+//     return total
+// }
+// pickingNumbers([1, 2, 2, 3, 1, 2]) // 5
+// pickingNumbers([98, 3, 99, 1, 97, 2]) // 2
+// [ 1, 2, 3, 97, 98, 99 ]
+// pickingNumbers([4, 6, 5, 3, 3, 1]) // 3
+
+
+
+// function miniMaxSum(arr) {
+//     // Write your code here
+//     let tempContainer = []
+//     let miniMax = []
+//     let max;
+//     let min;
+//     for (let i = 0; i < arr.length; i++) {
+//         tempContainer = arr.slice(i+1).concat(arr.slice(0,i))
+//         miniMax.push(tempContainer.reduce((pre,curr) => {
+//             return pre + curr
+//         }));
+//     }
+//     max = Math.max(...miniMax)
+//     min = Math.min(...miniMax)
+//     console.log(min,max);
+// }
+// miniMaxSum([1, 2, 3, 4, 5])
+
+
+
+// function kaprekarNumbers(p, q) {
+//     // Write your code here
+//     let stringNum;
+//     let kapNums = []
+//     let squared;
+//     let sum;
+//     let r;
+//     let l;
+//     for (let i = p; i <= q; i++) {
+//         if (i === 1) {
+//             kapNums.push(i)
+//             continue
+//         }
+//         squared = Math.pow(i,2)
+//         stringNum = squared.toString()
+//         l = stringNum.substring(0,  Math.floor(stringNum.length / 2))
+//         r = stringNum.substring(Math.floor(stringNum.length / 2))
+//         sum = Number(l) + Number(r)
+//         if (i === sum) {
+//             kapNums.push(i)
+//         }
+//     }
+//     if (!kapNums.length) console.log('INVALID RANGE');
+//     else console.log(...kapNums);
+// }
+// // kaprekarNumbers(1,99999)
+// kaprekarNumbers(400,700)
+
+
+
+// take the first element from an array
+// take the last element from the next array
+// push that extracted first element to the next array
+// push that extracted last element to the existing array
+
+function matrixRotation(matrix, r) {
+    // Write your code here
+    let shiftedNum;
+    let poppedNum;
+    let shiftedNumInner;
+    let poppedNumInner;
+        for (let i = 0; i < matrix.length; i++) {
+            if (i === 0) {
+                shiftedNum = matrix[i].shift()
+                poppedNum = matrix[i+1].pop()
+                matrix[i+1].unshift(shiftedNum)
+                matrix[i].push(poppedNum)
+            } else if (matrix[i+1]) {
+                shiftedNum = matrix[i].splice(1,1)
+                matrix[i+1].unshift(...shiftedNum)
+                poppedNum = matrix[i+1].pop()
+                matrix[i].push(poppedNum)
+            }
+        }
+        for (let i = 1; i < matrix.length - 2; i++) {
+            let beforeLastEle = matrix[i].length - 2
+            if (i === 1) {
+                shiftedNumInner = matrix[i].splice(1,1)
+                poppedNumInner = matrix[i+1].splice(beforeLastEle,1)
+                matrix[i].splice(beforeLastEle,0,...poppedNumInner)
+                matrix[i+1].splice(1,0,...shiftedNumInner)
+            } else {
+                shiftedNumInner = matrix[i].splice(2,1)
+                matrix[i+1].splice(1,0,...shiftedNumInner)
+                poppedNumInner = matrix[i+1].splice(matrix[i].length,1)
+                matrix[i].splice(beforeLastEle,0,...poppedNumInner)
+            }
+        }
+    if (r > 1) {
+        r--
+        matrixRotation(matrix, r)
+    } else {
+        matrix.forEach(row => {
+            console.log(...row)
+        });
+    }
+}
+// matrixRotation([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], 2)
+// 4 4 2        rows m = 4, columns n = 4, rotation factor r = 2
+// 1 2 3 4      matrix = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+// 5 6 7 8
+// 9 10 11 12
+// 13 14 15 16
+
+// 1  2  3  4      2  3  4  8      3  4  8 12
+// 5  6  7  8      1  7 11 12      2 11 10 16
+// 9 10 11 12  ->  5  6 10 16  ->  1  7  6 15
+// 13 14 15 16      9 13 14 15      5  9 13 14
+
+// 2  3  4  8
+// 1
+matrixRotation([[1, 2, 3, 4], [7, 8, 9, 10], [13, 14, 15, 16], [19, 20, 21, 22] , [25, 26, 27, 28]], 7)
+
+// 1  2  3  4      2  3  4 10    3  4 10 16    4 10 16 22
+// 7  8  9 10      1  9 15 16    2 15 21 22    3 21 20 28
+// 13 14 15 16 ->  7  8 21 22 -> 1  9 20 28 -> 2 15 14 27 ->
+// 19 20 21 22    13 14 20 28    7  8 14 27    1  9  8 26
+// 25 26 27 28    19 25 26 27    13 19 25 26   7 13 19 25
+//
+// 10 16 22 28    16 22 28 27    22 28 27 26    28 27 26 25
+//  4 20 14 27    10 14  8 26    16  8  9 25    22  9 15 19
+//  3 21  8 26 ->  4 20  9 25 -> 10 14 15 19 -> 16  8 21 13
+//  2 15  9 25     3 21 15 19     4 20 21 13    10 14 20  7
+//  1  7 13 19     2  1  7 13     3  2  1  7     4  3  2  1
