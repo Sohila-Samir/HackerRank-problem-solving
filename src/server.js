@@ -561,6 +561,7 @@
 // compareTriplets([17, 28, 30],[99, 16, 8])
 
 
+
 // function diagonalDifference(arr) {
 //     // Write your code here
 //     let ltrDiagonal = 0
@@ -583,10 +584,6 @@
 // }
 // diagonalDifference([[11, 2, 4,], [4, 5, 6], [10, 8, -12]]) // 15
 // diagonalDifference([[-1, 1, -7, -8], [-10, -8, -5, -2], [0, 9, 7, -1], [4, 4, -2, 1]]) // 1
-
-
-
-// don't forget the rice on the stove
 
 
 
@@ -668,77 +665,237 @@
 
 
 
-// take the first element from an array
-// take the last element from the next array
-// push that extracted first element to the next array
-// push that extracted last element to the existing array
+// function bigSorting(unsorted) {
+//     // Write your code here
+//     unsorted.sort((a,b) => {
+//         if (a.length === b.length) {
+//             return Number(a) - Number(b)
+//         } else {
+//             return a.length - b.length
+//         }
+//     })
+//     console.log(unsorted);
+//     return unsorted
+// }
+// // bigSorting(['6', '31415926535897932384626433832795', '1', '3', '10', '3', '5'])
+// bigSorting(['8', '1', '2', '100', '123', '12303479849857341718340192371', '3084193741082937', '3084193741082938', '111', '200'])
 
-function matrixRotation(matrix, r) {
-    // Write your code here
-    let shiftedNum;
-    let poppedNum;
-    let shiftedNumInner;
-    let poppedNumInner;
-        for (let i = 0; i < matrix.length; i++) {
-            if (i === 0) {
-                shiftedNum = matrix[i].shift()
-                poppedNum = matrix[i+1].pop()
-                matrix[i+1].unshift(shiftedNum)
-                matrix[i].push(poppedNum)
-            } else if (matrix[i+1]) {
-                shiftedNum = matrix[i].splice(1,1)
-                matrix[i+1].unshift(...shiftedNum)
-                poppedNum = matrix[i+1].pop()
-                matrix[i].push(poppedNum)
-            }
-        }
-        for (let i = 1; i < matrix.length - 2; i++) {
-            let beforeLastEle = matrix[i].length - 2
-            if (i === 1) {
-                shiftedNumInner = matrix[i].splice(1,1)
-                poppedNumInner = matrix[i+1].splice(beforeLastEle,1)
-                matrix[i].splice(beforeLastEle,0,...poppedNumInner)
-                matrix[i+1].splice(1,0,...shiftedNumInner)
-            } else {
-                shiftedNumInner = matrix[i].splice(2,1)
-                matrix[i+1].splice(1,0,...shiftedNumInner)
-                poppedNumInner = matrix[i+1].splice(matrix[i].length,1)
-                matrix[i].splice(beforeLastEle,0,...poppedNumInner)
-            }
-        }
-    if (r > 1) {
-        r--
-        matrixRotation(matrix, r)
-    } else {
-        matrix.forEach(row => {
-            console.log(...row)
-        });
-    }
-}
-// matrixRotation([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], 2)
-// 4 4 2        rows m = 4, columns n = 4, rotation factor r = 2
-// 1 2 3 4      matrix = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-// 5 6 7 8
-// 9 10 11 12
-// 13 14 15 16
 
-// 1  2  3  4      2  3  4  8      3  4  8 12
-// 5  6  7  8      1  7 11 12      2 11 10 16
-// 9 10 11 12  ->  5  6 10 16  ->  1  7  6 15
-// 13 14 15 16      9 13 14 15      5  9 13 14
 
-// 2  3  4  8
-// 1
-matrixRotation([[1, 2, 3, 4], [7, 8, 9, 10], [13, 14, 15, 16], [19, 20, 21, 22] , [25, 26, 27, 28]], 7)
+// function happyLadybugs(b) {
+//     // Write your code here
+//     let emptyChars = b.match(/[_]/g)
+//     let bArr = [...b]
+//     let notHappyCounter = 0
+//     for (let i = 0; i < bArr.length; i++) {
+//         let matchingCharRegex = new RegExp(bArr[i],'g')
+//         if (b.match(matchingCharRegex).length <= 1 && bArr[i] !== '_') {
+//             notHappyCounter++
+//             break
+//         } else if (
+//                 (b.match(matchingCharRegex).length > 1) &&
+//                 (bArr[i] !== '_') &&
+//                 (!emptyChars) &&
+//                 (((bArr[i] !== bArr[i-1]) && i !== 0) || ((bArr[i] !== bArr[i+1]) && i !== bArr.length - 1))
+//             ) {
+//             notHappyCounter++
+//         }
+//     }
+//     if (notHappyCounter) {
+//         console.log('NO');
+//         return 'NO'
+//     } else {
+//         console.log('YES');
+//         return 'YES'
+//     }
+// }
+// happyLadybugs('RBY_YBR') // YES
+// happyLadybugs('X_Y__X') // NO
+// happyLadybugs('B_RRBR') // YES
+// happyLadybugs('__') // YES
+// happyLadybugs('AABBC') // NO
+// happyLadybugs('AABBC_C') // YES
+// happyLadybugs('_') // YES
+// happyLadybugs('DD__FQ_QQF') // YES
+// happyLadybugs('AABCBC') // NO
+// happyLadybugs('RBRB') // NO
+// happyLadybugs('RRRR') // YES
+// happyLadybugs('LS_FNQQINWRZOWBWBNIORI_ZLNNSZISIWNFOFSFFLOWIBZRWFX') // 44 // NO
 
-// 1  2  3  4      2  3  4 10    3  4 10 16    4 10 16 22
-// 7  8  9 10      1  9 15 16    2 15 21 22    3 21 20 28
-// 13 14 15 16 ->  7  8 21 22 -> 1  9 20 28 -> 2 15 14 27 ->
-// 19 20 21 22    13 14 20 28    7  8 14 27    1  9  8 26
-// 25 26 27 28    19 25 26 27    13 19 25 26   7 13 19 25
+
+
+// function staircase(n) {
+//     // Write your code here
+//     let whiteSpace = n
+//     for (let i = 0; i < n; i++) {
+//         whiteSpace--
+//         if (whiteSpace === 0) console.log('#'.repeat(Math.abs(whiteSpace - n)));
+//         else console.log(' '.repeat(whiteSpace - 1),'#'.repeat(Math.abs(whiteSpace - n)));
+//     }
+// }
+// staircase(4)
+
+
+
+// function countApplesAndOranges(s, t, a, b, apples, oranges) {
+//     // Write your code here
+//     let oDistance;
+//     let appDistance;
+//     let aCount = 0;
+//     let oCount = 0;
+//     for (let i = 0; i < apples.length; i++) {
+//         appDistance = a + apples[i];
+//         if (s <= appDistance && appDistance <= t) {
+//             aCount++
+//         }
+//     }
+//     for (let i = 0; i < oranges.length; i++) {
+//         oDistance = b + oranges[i];
+//         if (s <= oDistance && oDistance <= t) {
+//             oCount++
+//         }
+//     }
+//     console.log(aCount);
+//     console.log(oCount);
+// }
+// countApplesAndOranges(7, 11, 5, 15, [-2, 2, 1], [5, -6])
+
+
+
+// function kangaroo(x1, v1, x2, v2) {
+//     // Write your code here
+//     let x = Math.abs(x1 - x2) % 2;
+//     let v = Math.abs(v1 - v2) % 3;
+//     if ((x2 > x1 && v2 > v1) || (x1 > x2 && v1 > v2)) {
+//         console.log('NO');
+//         return 'NO'
+//     } else if (x === v &&) {
+//         console.log('NO');
+//         return 'NO'
+//     } else if (x > v) {
+//         console.log('NO');
+//         return 'NO'
+//     } else {
+//         console.log('YES');
+//         return 'YES'
+//     }
+// }
+// kangaroo(0, 3, 4, 2) // YES
+// kangaroo(0, 2, 5, 3) // NO -
+// kangaroo(4602, 8519, 7585, 8362) // YES --
+// kangaroo(2932, 7030, 9106, 4840) // NO -
+// kangaroo(1928, 4306, 5763, 4301) // YES
+
+
+
+// function breakingRecords(scores) {
+//     // Write your code here
+//     let lowest = scores[0];
+//     let lowestTimes = 0
+//     let highest = scores[0];
+//     let highestTimes = 0
+//     for (let i = 1; i < scores.length; i++) {
+//         if (scores[i] > highest) {
+//             console.log('executed the first condition');
+//             highest = scores[i]
+//             highestTimes++
+//         } else if (scores[i] < lowest) {
+//             console.log('executed the second condition');
+//             lowest = scores[i]
+//             lowestTimes++
+//         }
+//     }
+//     console.log(highestTimes, lowestTimes);
+//     return [highestTimes, lowestTimes]
+// }
+// breakingRecords([3, 4, 21, 36, 10, 28, 35, 5, 24, 42])
+// breakingRecords([10, 5, 20, 20, 4, 5, 2, 25, 1])
+
+
+
+// function designerPdfViewer(h, word) {
+//     // Write your code here
+//     let charCodes = [];
+//     let highest;
+//     let area;
+//     for (let i = 0; i < word.length; i++) {
+//         charCodes.push(word.charCodeAt(i) - 97)
+//     }
+//     for (let i = 0; i < charCodes.length - 1; i++) {
+//         if (h[charCodes[i]] >= h[charCodes[i+1]] && i === 0) highest = h[charCodes[i]]
+//         else if (h[charCodes[i]] < h[charCodes[i+1]] && i === 0) highest = h[charCodes[i+1]]
+//         else if (h[charCodes[i]] > highest) highest = h[charCodes[i]]
+//     }
+//     area = word.length * highest
+//     console.log(area);
+//     return area
+// }
+// // designerPdfViewer([1, 3, 1, 3, 1, 4, 1, 3, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7], 'abc')
+// // designerPdfViewer([1, 3, 1, 3, 1, 4, 1, 3, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7], 'zbkkfhwplj')
+// designerPdfViewer([1, 3, 1, 3, 1, 4, 1, 3, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7], 'ljbddqqahm')
+// // designerPdfViewer([1, 3, 1, 3, 1, 4, 1, 3, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7], 'zaba')
+
+
+
+// function findDigits(n) {
+//     // Write your code here
+//     let intoString = n.toString()
+//     let counter = 0
+//     for (let i = 0; i < intoString.length; i++) {
+//         if (n % Number(intoString[i]) === 0) counter++
+//     }
+//     console.log(counter);
+//     return counter
+// }
+// findDigits(12)
+// findDigits(1012)
+// findDigits(111)
+// findDigits(10)
+
+
+//CHECK IT LATER
+// function serviceLane(width, cases) {
+//     // Write your code here
 //
-// 10 16 22 28    16 22 28 27    22 28 27 26    28 27 26 25
-//  4 20 14 27    10 14  8 26    16  8  9 25    22  9 15 19
-//  3 21  8 26 ->  4 20  9 25 -> 10 14 15 19 -> 16  8 21 13
-//  2 15  9 25     3 21 15 19     4 20 21 13    10 14 20  7
-//  1  7 13 19     2  1  7 13     3  2  1  7     4  3  2  1
+// }
+// serviceLane([2, 3, 1, 2, 3, 2, 3, 3], [[0, 3], [4, 6], [6, 7], [3, 5], [0, 7]])
+
+
+
+// function hurdleRace(k, height) {
+//     // Write your code here
+//     let maxPotion;
+//     let tallestHurdle = Math.max(...height)
+//     if (k > tallestHurdle) {
+//         console.log(0);
+//         return 0
+//     } else {
+//         maxPotion = tallestHurdle - k
+//         console.log(maxPotion);
+//         return maxPotion
+//     }
+// }
+// hurdleRace(7,[2, 5, 4, 5, 2])
+// hurdleRace(4,[1, 6, 3, 5, 2])
+// hurdleRace(1,[1, 2, 3, 3, 2])
+
+
+
+// function bonAppetit(bill, k, b) {
+//     // Write your code here
+//     let actual = 0;
+//     for (let i = 0; i < bill.length; i++) {
+//         if (i !== k) actual += bill[i]
+//     }
+//     actual /= 2
+//     if (b === actual) {
+//         console.log('Bon Appetit');
+//         return 'Bon Appetit'
+//     } else {
+//         let refundCase = b - actual
+//         console.log(refundCase);
+//         return refundCase
+//     }
+// }
+// // bonAppetit([3, 10, 2, 9], 1, 12)
+// bonAppetit([3, 10, 2, 9], 1, 7)
